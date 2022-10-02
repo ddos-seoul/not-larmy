@@ -18,5 +18,5 @@ class GenerateSummaryUseCase:
             self.greeting_maker.execute(),
             self.temperature_maker.execute(),
             self.heads_up_maker.execute(),
-        )
+        )  # 여기서 리스폰스 예외처리
         return Summary(greeting, temperature, heads_up)
