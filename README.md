@@ -11,3 +11,5 @@ pip freeze >...
 개발 환경 구동
 # make run 
 실행 환경 구동
+# make test
+테스트
