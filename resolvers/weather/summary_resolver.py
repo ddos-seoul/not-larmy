@@ -15,7 +15,10 @@ async def weather_summary(lat: float, lon: float):
         summary_generator = GenerateSummaryUseCase(lat, lon)
     except Exception as e:
         raise HTTPException(status=500, detail="Internal Server Error")
-    return dataclasses.asdict(await summary_generator.execute())
+    summary_dict = dataclasses.asdict(await summary_generator.execute())
+    summary_dict["heads-up"] = summary_dict.pop("heads_up")
+    # TODO as_dict 혹은 __dict__ 수정
+    return summary_dict
 
 
 def validate_args(lat, lon):

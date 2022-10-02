@@ -3,7 +3,7 @@ import os
 import aiohttp
 import asyncio
 
-from usecases.constant import SERVER_URL, WeatherCode
+from usecases.utils import SERVER_URL, WeatherCode, fetch
 
 POINT_GAP = 6
 
@@ -21,12 +21,6 @@ class GenerateHeadsUpUseCase:
                 *[loop.create_task(fetch(session, url)) for url in urls]
             )
             return forecast_to_str(results)
-
-
-async def fetch(session, url):
-    # TODO make util
-    async with session.get(url) as response:
-        return await response.json()
 
 
 def forecast_to_str(results):

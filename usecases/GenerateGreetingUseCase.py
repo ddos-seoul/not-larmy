@@ -2,7 +2,7 @@ import os
 
 import aiohttp
 
-from usecases.constant import SERVER_URL, WeatherCode
+from usecases.utils import SERVER_URL, WeatherCode, make_url
 
 
 class GenerateGreetingUseCase:
@@ -13,8 +13,6 @@ class GenerateGreetingUseCase:
     async def execute(self):
         async with aiohttp.ClientSession() as session:
             async with session.get(make_url(self.lat, self.lon)) as response:
-                j = response.json()
-                print(await j)
                 return weather_to_str(await response.json())
 
 
@@ -35,16 +33,3 @@ def weather_to_str(weather):
     elif weather["temp"] <= 0:
         return "날이 참 춥네요."
     return "날씨가 참 맑습니다."
-
-
-def make_url(lat, lon):
-    # TODO make util
-    return (
-        SERVER_URL
-        + "/current?lat="
-        + str(lat)
-        + "&lon="
-        + str(lon)
-        + "&api_key="
-        + os.environ["AWS_API_KEY"]
-    )

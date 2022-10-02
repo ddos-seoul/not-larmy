@@ -3,8 +3,7 @@ import os
 
 import aiohttp
 
-from usecases.GenerateGreetingUseCase import make_url
-from usecases.constant import SERVER_URL
+from usecases.utils import SERVER_URL, fetch, make_url
 
 
 class GenerateTemperatureUseCase:
@@ -52,12 +51,6 @@ def history_temp_diff_str(now, before):
 
 def temp_min_max_str(temps):
     return "최고기온은 " + str(max(temps)) + "도, 최저기온은 " + str(min(temps)) + "도 입니다."
-
-
-async def fetch(session, url):
-    # TODO make util
-    async with session.get(url) as response:
-        return await response.json()
 
 
 def make_urls_historical(lat, lon):
