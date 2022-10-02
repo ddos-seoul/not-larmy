@@ -1,9 +1,8 @@
 import os
-from enum import Enum
 
 import aiohttp
 
-from usecases.constant import SERVER_URL
+from usecases.constant import SERVER_URL, WeatherCode
 
 
 class GenerateGreetingUseCase:
@@ -49,10 +48,3 @@ def make_url(lat, lon):
         + "&api_key="
         + os.environ["AWS_API_KEY"]
     )
-
-
-class WeatherCode(Enum):
-    FINE = 0
-    CLOUD = 1
-    RAIN = 2
-    SNOW = 3
