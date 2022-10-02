@@ -9,3 +9,6 @@ run:
 
 freeze:
 	pip freeze > requirements.txt
+
+test:
+	python -m unittest

@@ -3,7 +3,7 @@ import os
 import aiohttp
 import asyncio
 
-from usecases.utils import SERVER_URL, WeatherCode, fetch
+from usecases.utils import SERVER_URL, WeatherCode, fetch, ForeCastDescription
 
 POINT_GAP = 6
 
@@ -28,15 +28,15 @@ def forecast_to_str(results):
     a_day = results_to_codes[0:3]
     two_days = results_to_codes
     if a_day.count(WeatherCode.SNOW.value) >= 2:
-        return "내일 폭설이 내릴 수도 있으니 외출 시 주의하세요."
+        return ForeCastDescription.SNOW_TMR
     elif two_days.count(WeatherCode.SNOW.value) >= 2:
-        return "눈이 내릴 예정이니 외출 시 주의하세요."
+        return ForeCastDescription.SNOW_SOON
     elif a_day.count(WeatherCode.RAIN.value) >= 2:
-        return "폭우가 내릴 예정이에요. 우산을 미리 챙겨두세요."
+        return ForeCastDescription.RAIN_TMR
     elif two_days.count(WeatherCode.RAIN.value) >= 2:
-        return "며칠동안 비 소식이 있어요."
+        return ForeCastDescription.RAIN_SOON
     else:
-        return "날씨는 대체로 평온할 예정이에요."
+        return ForeCastDescription.FINE
 
 
 def make_urls_forecast(lat, lon):
